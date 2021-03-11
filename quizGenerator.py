@@ -1,6 +1,49 @@
 #!/usr/bin/python3
 
+import os
+import glob
 from collections import namedtuple
+
+TITLE_HEADER = '---- Quiz Generator ----\n'
+NOT_AN_INTEGER_ERR_MSG = 'Type an integer to answer'
+
+
+#def main():
+#  print(TITLE_HEADER)
+#
+#  print(getTopicOptions())
+#  selection = userSelectFromMenu()
+#
+#  print(getWorksheetOptions(selection)
+#
+  #playGame()
+
+def formatMenuOptions(options):
+  formattedOptions = ''
+
+  for index, option in enumerate(options, 1):
+    formattedOptions += f'\n{index}) {option}'
+
+  return formattedOptions
+
+def userSelectFromMenu():
+  try:
+    return int(input('Selection: '))
+  except ValueError:
+    print(NOT_AN_INTEGER_ERR_MSG)
+    return userSelectTopic()
+
+def getTopicOptions():
+  topicPaths = glob.glob('./topics/*')
+  topicBasenames = [os.path.basename(path) for path in topicPaths]
+
+  return topicBasenames
+
+def getWorksheetOptions(topic):
+  worksheetPaths = glob.glob(f'./topics/{topic}/*')
+  worksheetBasenames = [os.path.basename(path) for path in worksheetPaths]
+
+  return worksheetBasenames
 
 def formatQuestionString(question):
   return f'\nQuestion: "{question}"\n'
@@ -22,7 +65,7 @@ def getUsersAnswer():
   try:
     return int(answer)
   except ValueError:
-    print("Type an integer to answer.")
+    print(NOT_AN_INTEGER_ERR_MSG)
     return getUsersAnswer()
 
 def checkAnswer(userAnswer, solution):

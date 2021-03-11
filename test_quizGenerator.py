@@ -1,6 +1,32 @@
 import quizGenerator
 import io
 
+def testUserSelectFromMenu_isValid(monkeypatch):
+  monkeypatch.setattr('sys.stdin', io.StringIO('1'))
+
+  assert quizGenerator.userSelectFromMenu() == 1
+
+def testUserSelectFromMenu_isInvalid_canRecover(monkeypatch):
+  monkeypatch.setattr('sys.stdin', io.StringIO('error-inducing non-int string'))
+  #assert quizGenerator.userSelectTopic() == quizGenerator.NOT_AN_INTEGER_ERR_MSG
+  monkeypatch.setattr('sys.stdin', io.StringIO('2'))
+
+  assert quizGenerator.userSelectFromMenu() == 2
+
+def testFormatMenuOptions():
+  assert quizGenerator.formatMenuOptions(('option 1', 'option 2')) == '\n1) option 1\n2) option 2'
+
+def testGetWorksheetOptions_fromSampleTopic():
+  worksheetCollection = quizGenerator.getWorksheetOptions('sampleTopic')
+
+  assert 'sampleWorksheet_oneProblem1' in worksheetCollection
+  assert 'sampleWorksheet_oneProblem2' in worksheetCollection
+
+def testGetTopicOptions():
+  topicsCollection = quizGenerator.getTopicOptions()
+
+  assert 'sampleTopic' in topicsCollection
+  assert 'sampleTopic2' in topicsCollection
 
 def testCheckAnswer_isCorrect():
   solution = 'sample option 2'
