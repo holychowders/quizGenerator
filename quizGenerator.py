@@ -1,37 +1,109 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 import os
 import glob
 from collections import namedtuple
 
-TITLE_HEADER = '---- Quiz Generator ----\n'
+
+TITLE_HEADER = '---- Quiz Generator ----'
+GAME_START_HEADER = '---- Start ----'
+
+# Delimeter used for parsing each worksheet line containing a problem, solution, and answers.
+WORKSHEET_DELIMITER = ' --- '
+
 NOT_AN_INTEGER_ERR_MSG = 'Type an integer to answer'
+NOT_A_VALID_INTEGER_ERR_MSG = 'Not a valid selection'
 
 
-#def main():
-#  print(TITLE_HEADER)
-#
-#  print(getTopicOptions())
-#  selection = userSelectFromMenu()
-#
-#  print(getWorksheetOptions(selection)
-#
-  #playGame()
+def main():
+  topic, worksheet = runMainMenu()
+  runGame(topic, worksheet)
+
+# Not in test suite
+def runMainMenu():
+  print(TITLE_HEADER)
+
+  topicOptions = getTopicOptions()
+  print(f'\nTopics:\n{formatMenuOptions(topicOptions)}\n')
+  topicSelection = userSelectFromMenu(topicOptions)
+  print(f'Topic: {topicSelection}')
+
+  worksheetOptions = getWorksheetOptions(topicSelection) 
+  print(f'\nWorksheets:\n{formatMenuOptions(worksheetOptions)}\n')
+  worksheetSelection = userSelectFromMenu(worksheetOptions)
+  print(f'Worksheet: {worksheetSelection}')
+
+  return topicSelection, worksheetSelection
+
+def runGame(topic, worksheet):
+  print(f'\n{GAME_START_HEADER}')
+  problems = getProblemsFromWorksheet(topic, worksheet)
+  #TODO
+
+
+### MAIN PARTITION ABOVE ###
+
+### MISC BELOW ###
+
+
+Problem = namedtuple("Problem", ("question", "solution", "options"))
+
+def checkAnswer(userAnswer, solution):
+  return userAnswer == solution
+
+
+### FORMATTING BELOW ###
+
 
 def formatMenuOptions(options):
-  formattedOptions = ''
+  result = ''
 
   for index, option in enumerate(options, 1):
-    formattedOptions += f'\n{index}) {option}'
+    onLastIndex = (index == len(options) )
 
-  return formattedOptions
+    result += f'{index}) {option}'
+    result += '\n' if not onLastIndex else ''
 
-def userSelectFromMenu():
+  return result
+
+## Duplicate?
+def formatOptionsCollection(options):
+  optionsString = ''
+
+  for index, option in enumerate(options, 1):
+    optionsString += f'\n{index}) {option}\n'
+
+  return optionsString
+
+
+### USER INTERACTION BELOW ###
+
+
+def userSelectFromMenu(options, message='Selection: '):
   try:
-    return int(input('Selection: '))
+    intSelection = int(input(message))
+    return options[intSelection - 1]
+
   except ValueError:
     print(NOT_AN_INTEGER_ERR_MSG)
-    return userSelectTopic()
+    return userSelectFromMenu(options, message)
+  except IndexError:
+    print(NOT_A_VALID_INTEGER_ERR_MSG)
+    return userSelectFromMenu(options, message)
+
+def getUsersAnswer():
+  answer = input('Your answer: ')
+
+  try:
+    return int(answer)
+
+  except ValueError:
+    print(NOT_AN_INTEGER_ERR_MSG)
+    return getUsersAnswer()
+
+
+### WORKSHEET STUFF BELOW ###
+
 
 def getTopicOptions():
   topicPaths = glob.glob('./topics/*')
@@ -45,32 +117,6 @@ def getWorksheetOptions(topic):
 
   return worksheetBasenames
 
-def formatQuestionString(question):
-  return f'\nQuestion: "{question}"\n'
-
-def formatSolutionString(solution):
-  return f'\nSolution: "{solution}"\n'
-
-def formatOptionsCollection(options):
-  optionsString = ''
-
-  for index, option in enumerate(options, 1):
-    optionsString += f'\n{index}) {option}\n'
-
-  return optionsString
-
-def getUsersAnswer():
-  answer = input('Your answer: ')
-
-  try:
-    return int(answer)
-  except ValueError:
-    print(NOT_AN_INTEGER_ERR_MSG)
-    return getUsersAnswer()
-
-def checkAnswer(userAnswer, solution):
-  return userAnswer == solution
-
 def getProblemsFromWorksheet(topic, worksheet):
   parsedWorksheet = _parseWorksheet(topic, worksheet)
   problems = list()
@@ -83,15 +129,13 @@ def getProblemsFromWorksheet(topic, worksheet):
 
   return problems
 
-Problem = namedtuple("Problem", ("question", "solution", "options"))
-
 def _parseWorksheet(topic, worksheet):
   worksheetProblemsRaw = _getRawWorksheetProblems(topic, worksheet)
 
   worksheetProblemsRawSplit = []
 
   for problem in worksheetProblemsRaw:
-    worksheetProblemsRawSplit.append(problem.split(" --- "))
+    worksheetProblemsRawSplit.append(problem.split(WORKSHEET_DELIMITER))
 
   return worksheetProblemsRawSplit
 
@@ -101,3 +145,12 @@ def _getRawWorksheetProblems(topic, worksheet):
 
   return worksheetProblemsRaw
 
+def formatQuestionString(question):
+  return f'Question: "{question}"'
+
+def formatSolutionString(solution):
+  return f'Solution: "{solution}"'
+
+
+if __name__ == "__main__":
+  main()
