@@ -75,6 +75,12 @@ def formatOptionsCollection(options):
 
   return optionsString
 
+def formatQuestionString(question):
+  return f'Question: "{question}"'
+
+def formatSolutionString(solution):
+  return f'Solution: "{solution}"'
+
 
 ### USER INTERACTION BELOW ###
 
@@ -144,12 +150,6 @@ def _getRawWorksheetProblems(topic, worksheet):
     worksheetProblemsRaw = worksheetFile.readlines()
 
   return worksheetProblemsRaw
-
-def formatQuestionString(question):
-  return f'Question: "{question}"'
-
-def formatSolutionString(solution):
-  return f'Solution: "{solution}"'
 
 
 if __name__ == "__main__":
