@@ -127,9 +127,9 @@ def getProblemsFromWorksheet(topic, worksheet):
   parsedWorksheet = _parseWorksheet(topic, worksheet)
   problems = list()
 
-  for problem in parsedWorksheet:
-    questionAndSolution = problem[:2]
-    answers = problem[2:]
+  for line in parsedWorksheet:
+    questionAndSolution = line[:2]
+    answers = line[2:]
 
     problems.append(Problem(*questionAndSolution, answers))
 
