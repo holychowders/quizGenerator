@@ -67,23 +67,9 @@ def test_checkAnswer_isIncorrect():
 
   assert quizGenerator.checkAnswer(answer, solution) == False
 
-def test_getUsersAnswer_isValid(monkeypatch):
-  # This 'mocks' STDIN; IE, this replaces our keyboard as STDIN for this test.
-  monkeypatch.setattr('sys.stdin', io.StringIO('1'))
-  assert quizGenerator.getUsersAnswer() == 1
-
-def test_getUsersAnswer_isInvalid(monkeypatch):
-  monkeypatch.setattr('sys.stdin', io.StringIO('some invalid value'))
-  monkeypatch.setattr('sys.stdin', io.StringIO('2'))
-  assert quizGenerator.getUsersAnswer() == 2
-
 def test_formatQuestionString():
   assert quizGenerator.formatQuestionString('sample question 1') == 'Question: "sample question 1"'
 
-def test_formatOptionsCollection():
-  assert quizGenerator.formatOptionsCollection(('sample option 1', 'sample option 2')) \
-    == '\n1) sample option 1\n\n2) sample option 2\n'
-  
 def test_formatSolutionString():
   assert quizGenerator.formatSolutionString('sample option 3') == 'Solution: "sample option 3"'
 

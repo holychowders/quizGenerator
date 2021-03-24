@@ -66,15 +66,6 @@ def formatMenuOptions(options):
 
   return result
 
-## Duplicate?
-def formatOptionsCollection(options):
-  optionsString = ''
-
-  for index, option in enumerate(options, 1):
-    optionsString += f'\n{index}) {option}\n'
-
-  return optionsString
-
 def formatQuestionString(question):
   return f'Question: "{question}"'
 
@@ -102,16 +93,6 @@ def userSelectFromMenu(options, message='Selection: '):
     return userSelectFromMenu(options, message)
 
   return option
-
-def getUsersAnswer():
-  answer = input('Your answer: ')
-
-  try:
-    return int(answer)
-
-  except ValueError:
-    print(NOT_AN_INTEGER_ERR_MSG)
-    return getUsersAnswer()
 
 
 ### WORKSHEET STUFF BELOW ###
