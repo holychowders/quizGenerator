@@ -130,33 +130,23 @@ def getWorksheetOptions(topic):
   return worksheetBasenames
 
 def getProblemsFromWorksheet(topic, worksheet):
-  parsedWorksheet = _parseWorksheet(topic, worksheet)
+  worksheet = parseWorksheet(topic, worksheet)
   problems = list()
 
-  for line in parsedWorksheet:
+  for line in worksheet:
     questionAndSolution = line[:2]
-    answers = line[2:]
+    options = line[2:]
 
-    problems.append(Problem(*questionAndSolution, answers))
+    problems.append(Problem(*questionAndSolution, options))
 
   return problems
 
-def _parseWorksheet(topic, worksheet):
-  worksheetProblemsRaw = _getRawWorksheetProblems(topic, worksheet)
+def parseWorksheet(topic, worksheet):
+  with open(f"./topics/{topic}/{worksheet}") as worksheet:
+    lines = worksheet.readlines()
+    cleanedLines = [line.strip('\n').split(WORKSHEET_DELIMITER) for line in lines]
 
-  worksheetProblemsRawSplit = []
-
-  for problem in worksheetProblemsRaw:
-    worksheetProblemsRawSplit.append(problem.split(WORKSHEET_DELIMITER))
-
-  return worksheetProblemsRawSplit
-
-def _getRawWorksheetProblems(topic, worksheet):
-  with open(f"./topics/{topic}/{worksheet}") as worksheetFile:
-    worksheetProblemsRaw = worksheetFile.readlines()
-
-  return worksheetProblemsRaw
-
+    return cleanedLines
 
 if __name__ == "__main__":
   main()

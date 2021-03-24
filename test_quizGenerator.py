@@ -4,15 +4,6 @@ import pytest
 import io
 
 
-#def test_formatOptionsPresentation_withHeader():
-#  options = ['1) option 1', '2) option 2']
-#  header = 'Topics:\n\n'
-#
-#  actualResult = quizGenerator.formatOptionsPresentation(options, header)
-#  expectedResult = f'Topics:\n{options[0]}\n{options[1]}'
-#
-#  assert actualResult == expectedResult
-
 def test_userSelectFromMenu_isValid(monkeypatch):
   options = ['option 1', 'option 2']
 
@@ -100,19 +91,19 @@ def test_getProblemsFromSampleWorksheet_WithOneProblem():
   problems = quizGenerator.getProblemsFromWorksheet('sampleTopic', 'sampleWorksheet_oneProblem1')
   problem = problems[0]
 
-  assert problem.question   == 'sample question 1' 
+  assert problem.question   == 'sample question 1'
   assert problem.solution   == 'sample option 1'
-  assert problem.options[0] == 'sample option 1' 
-  assert problem.options[1] == 'sample option 2\n' 
+  assert problem.options[0] == 'sample option 1'
+  assert problem.options[1] == 'sample option 2'
 
 def test_getProblemsFromAnotherWorksheet_WithOneProblem():
   problems = quizGenerator.getProblemsFromWorksheet('sampleTopic', 'sampleWorksheet_oneProblem2')
   problem = problems[0]
 
-  assert problem.question   == 'sample question 1' 
+  assert problem.question   == 'sample question 1'
   assert problem.solution   == 'sample option 2'
-  assert problem.options[0] == 'sample option 1' 
-  assert problem.options[1] == 'sample option 2\n' 
+  assert problem.options[0] == 'sample option 1'
+  assert problem.options[1] == 'sample option 2'
 
 def test_getProblemsFromAnotherTopicsWorksheet_withTwoProblems():
   problems = quizGenerator.getProblemsFromWorksheet('sampleTopic2', 'sampleWorksheet_twoProblems1')
@@ -125,11 +116,11 @@ def test_getProblemsFromAnotherTopicsWorksheet_withTwoProblems():
 
   assert problem1.question   == 'sample question 1' 
   assert problem1.solution   == 'sample option 1'
-  assert problem1.options[0] == 'sample option 1\n' 
+  assert problem1.options[0] == 'sample option 1' 
 
   assert problem2.question   == 'sample question 2' 
   assert problem2.solution   == 'sample option 1'
-  assert problem2.options[0] == 'sample option 1\n' 
+  assert problem2.options[0] == 'sample option 1' 
 
 def test_getProblemsFromWorksheet_WithTwoProblems():
   problems = quizGenerator.getProblemsFromWorksheet('sampleTopic2', 'sampleWorksheet_twoProblems1')
@@ -140,32 +131,21 @@ def test_getProblemsFromWorksheet_WithTwoProblems():
 
   assert problem1.question   == 'sample question 1' 
   assert problem1.solution   == 'sample option 1'
-  assert problem1.options[0] == 'sample option 1\n' 
+  assert problem1.options[0] == 'sample option 1' 
 
   assert problem2.question   == 'sample question 2' 
   assert problem2.solution   == 'sample option 1'
-  assert problem2.options[0] == 'sample option 1\n' 
+  assert problem2.options[0] == 'sample option 1' 
 
 def test_parseWorksheet_withOneProblem():
-  parsedWorksheet = quizGenerator._parseWorksheet('sampleTopic', 'sampleWorksheet_oneProblem1')
+  parsedWorksheet = quizGenerator.parseWorksheet('sampleTopic', 'sampleWorksheet_oneProblem1')
 
   # After the sample question comes the solution and then all the options (possible answers).
-  assert parsedWorksheet[0] == ['sample question 1', 'sample option 1', 'sample option 1', 'sample option 2\n']
+  assert parsedWorksheet[0] == ['sample question 1', 'sample option 1', 'sample option 1', 'sample option 2']
 
 def test_parseWorksheet_withTwoProblems():
-  parsedWorksheet = quizGenerator._parseWorksheet('sampleTopic2', 'sampleWorksheet_twoProblems1')
+  parsedWorksheet = quizGenerator.parseWorksheet('sampleTopic2', 'sampleWorksheet_twoProblems1')
 
-  assert parsedWorksheet[0] == ['sample question 1', 'sample option 1', 'sample option 1\n']
-  assert parsedWorksheet[1] == ['sample question 2', 'sample option 1', 'sample option 1\n']
-
-def test_getRawWorksheetProblems_withOneProblem():
-  rawWorksheetProblems = quizGenerator._getRawWorksheetProblems('sampleTopic', 'sampleWorksheet_oneProblem1')
-
-  assert rawWorksheetProblems[0] == 'sample question 1 --- sample option 1 --- sample option 1 --- sample option 2\n'
-
-def test_getRawWorksheetProblems_WithTwoProblems():
-  rawWorksheetProblems = quizGenerator._getRawWorksheetProblems('sampleTopic2', 'sampleWorksheet_twoProblems1')
-
-  assert rawWorksheetProblems[0] == 'sample question 1 --- sample option 1 --- sample option 1\n'
-  assert rawWorksheetProblems[1] == 'sample question 2 --- sample option 1 --- sample option 1\n'
+  assert parsedWorksheet[0] == ['sample question 1', 'sample option 1', 'sample option 1']
+  assert parsedWorksheet[1] == ['sample question 2', 'sample option 1', 'sample option 1']
 
