@@ -20,6 +20,13 @@ def test_userSelectFromMenu_isValid(monkeypatch):
   assert quizGenerator.userSelectFromMenu(options) == 'option 1'
 
 @pytest.mark.skip(reason="I don't know how to prevent the EOFError and just get the intial output.")
+def test_userSelectFromMenu_isZero(monkeypatch):
+  options = ['option 1', 'option 2']
+
+  monkeypatch.setattr('sys.stdin', io.StringIO('0'))
+  assert quizGenerator.userSelectFromMenu(options) == quizGenerator.NOT_A_VALID_INT_MSG
+
+@pytest.mark.skip(reason="I don't know how to prevent the EOFError and just get the intial output.")
 def test_userSelectFromMenu_invalidString(monkeypatch):
   options = ['option 1', 'option 2']
 
