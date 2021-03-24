@@ -88,7 +88,8 @@ def formatSolutionString(solution):
 def userSelectFromMenu(options, message='Selection: '):
   try:
     intSelection = int(input(message))
-    return options[intSelection - 1]
+    assert (intSelection >= 1), NOT_A_VALID_INTEGER_ERR_MSG
+    option = options[intSelection - 1]
 
   except ValueError:
     print(NOT_AN_INTEGER_ERR_MSG)
@@ -96,6 +97,11 @@ def userSelectFromMenu(options, message='Selection: '):
   except IndexError:
     print(NOT_A_VALID_INTEGER_ERR_MSG)
     return userSelectFromMenu(options, message)
+  except AssertionError as ae:
+    print(ae.args[0])
+    return userSelectFromMenu(options, message)
+
+  return option
 
 def getUsersAnswer():
   answer = input('Your answer: ')
