@@ -8,8 +8,9 @@ from collections import namedtuple
 TITLE_HEADER = '---- Quiz Generator ----'
 GAME_START_HEADER = '---- Start ----'
 
-# Delimeter used for parsing each worksheet line containing a problem, solution, and answers.
 WORKSHEET_DELIMITER = ' --- '
+
+TOPICS_DIRECTORY = './topics'
 
 NOT_AN_INTEGER_ERR_MSG = 'Type an integer to answer'
 NOT_A_VALID_INTEGER_ERR_MSG = 'Not a valid selection'
@@ -35,6 +36,7 @@ def runMainMenu():
 
   return topicSelection, worksheetSelection
 
+# Not in test suite
 def runGame(topic, worksheet):
   print(f'\n{GAME_START_HEADER}')
   problems = getProblemsFromWorksheet(topic, worksheet)
@@ -43,7 +45,7 @@ def runGame(topic, worksheet):
 
 ### MAIN PARTITION ABOVE ###
 
-### MISC BELOW ###
+### PROBLEM-RELATED BELOW ###
 
 
 Problem = namedtuple("Problem", ("question", "solution", "options"))
@@ -99,13 +101,13 @@ def userSelectFromMenu(options, message='Selection: '):
 
 
 def getTopicOptions():
-  topicPaths = glob.glob('./topics/*')
+  topicPaths = glob.glob(f'{TOPICS_DIRECTORY}/*')
   topicBasenames = [os.path.basename(path) for path in topicPaths]
 
   return topicBasenames
 
 def getWorksheetOptions(topic):
-  worksheetPaths = glob.glob(f'./topics/{topic}/*')
+  worksheetPaths = glob.glob(f'{TOPICS_DIRECTORY}/{topic}/*')
   worksheetBasenames = [os.path.basename(path) for path in worksheetPaths]
 
   return worksheetBasenames
@@ -123,7 +125,7 @@ def getProblemsFromWorksheet(topic, worksheet):
   return problems
 
 def parseWorksheet(topic, worksheet):
-  with open(f"./topics/{topic}/{worksheet}") as worksheet:
+  with open(f"{TOPICS_DIRECTORY}/{topic}/{worksheet}") as worksheet:
     lines = worksheet.readlines()
     cleanedLines = [line.strip('\n').split(WORKSHEET_DELIMITER) for line in lines]
 
