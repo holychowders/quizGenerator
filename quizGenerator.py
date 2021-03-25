@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import os
+import pathlib
 import glob
 from collections import namedtuple
 
@@ -100,15 +100,18 @@ def userSelectFromMenu(options, message='Selection: '):
 ### WORKSHEET STUFF BELOW ###
 
 
+def getPathBasename(path):
+  return pathlib.PurePath(path).name
+
 def getTopicOptions():
   topicPaths = glob.glob(f'{TOPICS_DIRECTORY}/*')
-  topicBasenames = [os.path.basename(path) for path in topicPaths]
+  topicBasenames = [getPathBasename(path) for path in topicPaths]
 
   return topicBasenames
 
 def getWorksheetOptions(topic):
   worksheetPaths = glob.glob(f'{TOPICS_DIRECTORY}/{topic}/*')
-  worksheetBasenames = [os.path.basename(path) for path in worksheetPaths]
+  worksheetBasenames = [getPathBasename(path) for path in worksheetPaths]
 
   return worksheetBasenames
 

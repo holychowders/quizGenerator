@@ -4,6 +4,11 @@ import pytest
 import io
 
 
+def test_getPathBasename():
+  path = 'this/is/a/file.txt'
+
+  assert quizGenerator.getPathBasename(path) == 'file.txt'
+
 def test_userSelectFromMenu_isValid(monkeypatch):
   options = ['option 1', 'option 2']
 
