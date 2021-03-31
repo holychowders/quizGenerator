@@ -101,7 +101,9 @@ def userSelectFromMenu(options, message='Selection: '):
 
 
 def getPathBasename(path):
-  return pathlib.PurePath(path).name
+  path = pathlib.PurePath(path)
+
+  return path.name
 
 def getTopicOptions():
   topicPaths = glob.glob(f'{TOPICS_DIRECTORY}/*')
@@ -133,6 +135,12 @@ def parseWorksheet(topic, worksheet):
     cleanedLines = [line.strip('\n').split(WORKSHEET_DELIMITER) for line in lines]
 
     return cleanedLines
+
+def verifyTopicsPathExists():
+  topicsPath = pathlib.Path(TOPICS_DIRECTORY)
+
+  return topicsPath.is_dir()
+
 
 if __name__ == "__main__":
   main()

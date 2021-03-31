@@ -4,6 +4,9 @@ import pytest
 import io
 
 
+def test_verifyTopicsPathExists():
+  assert quizGenerator.verifyTopicsPathExists() == True
+
 def test_getPathBasename():
   path = 'this/is/a/file.txt'
 
