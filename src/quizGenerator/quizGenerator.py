@@ -10,7 +10,7 @@ GAME_START_HEADER = '---- Start ----'
 
 WORKSHEET_DELIMITER = ' --- '
 
-TOPICS_DIRECTORY = './topics'
+TOPICS_DIRECTORY = str(pathlib.Path(__file__).parent) + '/../../topics'
 
 NOT_AN_INTEGER_ERR_MSG = 'Type an integer to answer'
 NOT_A_VALID_INTEGER_ERR_MSG = 'Not a valid selection'
