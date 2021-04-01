@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 
 import pathlib
-import glob
 from collections import namedtuple
 
 
@@ -106,16 +105,21 @@ def getPathBasename(path):
   return path.name
 
 def getTopicOptions():
-  topicPaths = glob.glob(f'{TOPICS_DIRECTORY}/*')
+  topicPaths = glob(TOPICS_DIRECTORY, '*')
   topicBasenames = [getPathBasename(path) for path in topicPaths]
 
   return topicBasenames
 
 def getWorksheetOptions(topic):
-  worksheetPaths = glob.glob(f'{TOPICS_DIRECTORY}/{topic}/*')
+  worksheetPaths = glob(f'{TOPICS_DIRECTORY}/{topic}/', '*')
   worksheetBasenames = [getPathBasename(path) for path in worksheetPaths]
 
   return worksheetBasenames
+
+def glob(path, pattern):
+  files = pathlib.Path(path).glob(pattern)
+
+  return [path.name for path in files]
 
 def getProblemsFromWorksheet(topic, worksheet):
   worksheet = parseWorksheet(topic, worksheet)

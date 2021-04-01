@@ -4,6 +4,11 @@ import pytest
 import io
 
 
+def test_glob():
+  topics = quizGenerator.glob(quizGenerator.TOPICS_DIRECTORY, '*')
+
+  assert ('sampleTopic' in topics) and ('sampleTopic2' in topics)
+
 def test_verifyTopicsPathExists():
   assert quizGenerator.verifyTopicsPathExists() == True
 
