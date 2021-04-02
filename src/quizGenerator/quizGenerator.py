@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 import pathlib
 from collections import namedtuple
 

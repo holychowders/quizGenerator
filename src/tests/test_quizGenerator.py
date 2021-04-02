@@ -1,4 +1,4 @@
-from quizGenerator import quizGenerator
+from src.quizGenerator import quizGenerator
 
 import pytest
 import io

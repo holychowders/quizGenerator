@@ -1,8 +1,7 @@
-topics/asm/
-
 src/quizGenerator/__pycache__/
 
 src/tests/__pycache__/
-src/tests/.pytest_cache/
+
+topics/asm/
 
 .archive/
