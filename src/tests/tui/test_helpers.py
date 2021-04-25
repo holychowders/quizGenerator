@@ -5,6 +5,24 @@ import pytest
 import io
 
 
+def test_getTopicFromUser():
+  warnings.warn("TODO")
+
+def test_getWorksheetFromUser():
+  warnings.warn("TODO")
+
+def test_getProblems():
+  warnings.warn("TODO")
+
+def test_randomizeProblemSet():
+  warnings.warn("TODO")
+
+def test_randomizeQuestionsInProblemSet():
+  warnings.warn("TODO")
+
+def displayQuestionAndOptions():
+  warnings.warn("TODO")
+
 def test_userSelectFromMenu_isValid(monkeypatch):
   options = ['option 1', 'option 2']
 

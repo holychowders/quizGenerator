@@ -1,5 +1,7 @@
 from src.quizGenerator.tui import helpers
-from src.quizGenerator import formatting, messages, fileOperations
+from src.quizGenerator import messages
+
+import time
 
 
 def main():
@@ -8,24 +10,32 @@ def main():
 
   return 0
 
+
 def runMainMenu():
   print(messages.TITLE_HEADER)
 
-  topicOptions = fileOperations.getTopicOptions()
-  print(f'\nTopics:\n{formatting.formatMenuOptions(topicOptions)}\n')
-  topicSelection = helpers.userSelectFromMenu(topicOptions)
-  print(f'Topic: {topicSelection}')
-
-  worksheetOptions = fileOperations.getWorksheetOptions(topicSelection) 
-  print(f'\nWorksheets:\n{formatting.formatMenuOptions(worksheetOptions)}\n')
-  worksheetSelection = helpers.userSelectFromMenu(worksheetOptions)
-  print(f'Worksheet: {worksheetSelection}')
+  topicSelection = helpers.getTopicFromUser()
+  worksheetSelection = helpers.getWorksheetFromUser(topicSelection)
 
   return topicSelection, worksheetSelection
 
+
 def runGame(topic, worksheet):
   print(f'\n{messages.GAME_START_HEADER}')
-  problems = fileOperations.getProblemsFromWorksheet(topic, worksheet)
+
+  problems = helpers.getProblems(topic, worksheet)
+
+  for problemNumber, problem in enumerate(problems):
+
+    if problemNumber > 0: print()
+    helpers.displayQuestionAndOptions(problem.question, problem.options)
+
+    selection = helpers.userSelectFromMenu(problem.options)
+    selectionIsCorrect = (selection == problem.solution)
+
+    if selectionIsCorrect: print(messages.CORRECT_ANSWER)
+    else: print(messages.INCORRECT_ANSWER)
+
+    time.sleep(1)
+
   #TODO
-
-
