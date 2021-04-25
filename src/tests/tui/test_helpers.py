@@ -4,6 +4,8 @@ from src.quizGenerator import messages
 import pytest
 import io
 
+import warnings
+
 
 def test_getTopicFromUser():
   warnings.warn("TODO")
