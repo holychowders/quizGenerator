@@ -1,5 +1,6 @@
 __pycache__/
 .pytest_cache/
+tags
 
 src/quizGenerator/__pycache__/
 src/quizGenerator/tui/__pycache__/
