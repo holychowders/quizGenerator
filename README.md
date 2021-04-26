@@ -20,15 +20,15 @@ Also my first honest experiment with test-driven development
 
 #### High Priority
 
--  Return to a menu or show statistics when problem set has been completed instead of exiting
+- Return to a menu or show statistics when problem set has been completed instead of exiting
 
--  Hide sample topics
+- Hide sample topics
 
 #### Medium Priority
 
--  Provide more distinctive visual boundaries between problems
+- Provide more distinctive visual boundaries between problems
 
--  Handle case of empty topic directory instead of infinite and empty selection loop
+- Handle case of empty topic directory instead of infinite and empty selection loop
 
 
 ### Features
@@ -46,6 +46,8 @@ Also my first honest experiment with test-driven development
 - Allow marking answer as uncertain/guess so it'll be asked again even if correct
 
 #### Medium Priority
+
+- Allow use of a countdown timer
 
 - Ask a problem an additional number of times if it was missed on previous quizzes
 - Create new quizzes composed of missed problems from previous quizzes
