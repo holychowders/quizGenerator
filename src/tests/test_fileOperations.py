@@ -1,32 +1,32 @@
 from src.quizGenerator import fileOperations
 
 
-def test_getWorksheetOptions_fromSampleTopic():
+def test_getWorksheetOptions_fromSampleTopic() -> None:
   worksheetCollection = fileOperations.getWorksheetOptions('sampleTopic')
 
   assert 'sampleWorksheet_oneProblem1' in worksheetCollection
   assert 'sampleWorksheet_oneProblem2' in worksheetCollection
 
-def test_getTopicOptions():
+def test_getTopicOptions() -> None:
   topicsCollection = fileOperations.getTopicOptions()
 
   assert 'sampleTopic' in topicsCollection
   assert 'sampleTopic2' in topicsCollection
 
-def test_glob():
+def test_glob() -> None:
   topics = fileOperations.glob(fileOperations.TOPICS_DIRECTORY, '*')
 
   assert ('sampleTopic' in topics) and ('sampleTopic2' in topics)
 
-def test_verifyTopicsPathExists():
+def test_verifyTopicsPathExists() -> None:
   assert fileOperations.verifyTopicsPathExists() == True
 
-def test_getPathBasename():
+def test_getPathBasename() -> None:
   path = 'this/is/a/file.txt'
 
   assert fileOperations.getPathBasename(path) == 'file.txt'
 
-def test_getProblemsFromSampleWorksheet_WithOneProblem():
+def test_getProblemsFromSampleWorksheet_WithOneProblem() -> None:
   problems = fileOperations.getProblemsFromWorksheet('sampleTopic', 'sampleWorksheet_oneProblem1')
   problem = problems[0]
 
@@ -35,7 +35,7 @@ def test_getProblemsFromSampleWorksheet_WithOneProblem():
   assert problem.options[0] == 'sample option 1'
   assert problem.options[1] == 'sample option 2'
 
-def test_getProblemsFromAnotherWorksheet_WithOneProblem():
+def test_getProblemsFromAnotherWorksheet_WithOneProblem() -> None:
   problems = fileOperations.getProblemsFromWorksheet('sampleTopic', 'sampleWorksheet_oneProblem2')
   problem = problems[0]
 
@@ -44,7 +44,7 @@ def test_getProblemsFromAnotherWorksheet_WithOneProblem():
   assert problem.options[0] == 'sample option 1'
   assert problem.options[1] == 'sample option 2'
 
-def test_getProblemsFromAnotherTopicsWorksheet_withTwoProblems():
+def test_getProblemsFromAnotherTopicsWorksheet_withTwoProblems() -> None:
   problems = fileOperations.getProblemsFromWorksheet('sampleTopic2', 'sampleWorksheet_twoProblems1')
 
   # These (and thus the worksheet) should be different so we know, for example,
@@ -61,7 +61,7 @@ def test_getProblemsFromAnotherTopicsWorksheet_withTwoProblems():
   assert problem2.solution   == 'sample option 1'
   assert problem2.options[0] == 'sample option 1' 
 
-def test_getProblemsFromWorksheet_WithTwoProblems():
+def test_getProblemsFromWorksheet_WithTwoProblems() -> None:
   problems = fileOperations.getProblemsFromWorksheet('sampleTopic2', 'sampleWorksheet_twoProblems1')
 
   problem1 = problems[0]

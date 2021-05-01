@@ -1,6 +1,6 @@
 from src.quizGenerator.tui import tui
 
 
-def main():
+def main() -> int:
   return tui.main()
 
