@@ -1,13 +1,7 @@
-__pycache__/
-.pytest_cache/
+**/*__pycache__
+**/*.pytest_cache
+**/*.mypy_cache
+
 tags
 
-src/quizGenerator/__pycache__/
-src/quizGenerator/tui/__pycache__/
-
-src/tests/__pycache__/
-src/tests/tui/__pycache__/
-
 topics/asm/
-
-.archive/

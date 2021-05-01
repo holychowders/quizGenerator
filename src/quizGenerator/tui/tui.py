@@ -3,15 +3,17 @@ from src.quizGenerator import messages
 
 import time
 
+from typing import Tuple
 
-def main():
+
+def main() -> int:
   topic, worksheet = runMainMenu()
   runGame(topic, worksheet)
 
   return 0
 
 
-def runMainMenu():
+def runMainMenu() -> Tuple[str, str]:
   print(messages.TITLE_HEADER)
 
   topicSelection = helpers.getTopicFromUser()
@@ -20,7 +22,7 @@ def runMainMenu():
   return topicSelection, worksheetSelection
 
 
-def runGame(topic, worksheet):
+def runGame(topic: str, worksheet: str) -> None:
   print(f'\n{messages.GAME_START_HEADER}')
 
   problems = helpers.getProblems(topic, worksheet)

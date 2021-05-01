@@ -1,4 +1,7 @@
-def formatMenuOptions(options):
+from typing import List
+
+
+def formatMenuOptions(options: List[str]) -> str:
   result = ''
 
   for index, option in enumerate(options, 1):
@@ -9,9 +12,9 @@ def formatMenuOptions(options):
 
   return result
 
-def formatQuestionString(question):
+def formatQuestionString(question: str) -> str:
   return f'Question: "{question}"'
 
-def formatSolutionString(solution):
+def formatSolutionString(solution: str) -> str:
   return f'Solution: "{solution}"'
 
