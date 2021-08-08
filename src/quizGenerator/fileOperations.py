@@ -5,7 +5,7 @@ from typing import List
 
 
 WORKSHEET_DELIMITER = ' --- '
-TOPICS_DIRECTORY = str(pathlib.Path(__file__).parent) + '/../../topics'
+TOPICS_DIRECTORY = str(pathlib.Path(__file__).parent) + '/../../quizzes/topics'
 
 
 Problem = namedtuple("Problem", ("question", "solution", "options"))
