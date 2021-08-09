@@ -3,9 +3,7 @@
 
 ## Project Description
 
-Load in your quiz questions and be prompted to solve them
-
-Also my first honest experiment with test-driven development
+Convert written problems into an interactive quiz
 
 
 ## TODO's
