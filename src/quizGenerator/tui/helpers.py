@@ -2,7 +2,7 @@ from src.quizGenerator import fileOperations, formatting, messages
 
 import random
 
-from typing import List
+from typing import List, Any
 
 
 def getTopicFromUser() -> str:
@@ -45,28 +45,14 @@ def getWorksheetFromUser(topicSelection: str) -> str:
 def getProblems(topic: str, worksheet: str) -> List[fileOperations.Problem]:
   problems = fileOperations.getProblemsFromWorksheet(topic, worksheet)
 
-  randomizedProblemSet = randomizeProblemSet(problems)
+  randomizedProblemSet = randomizeCollection(problems)
 
   return list(randomizedProblemSet)
 
-def randomizeProblemSet(problemSet: List[fileOperations.Problem]) -> List[fileOperations.Problem]:
-  randomizedProblems = random.sample(problemSet, k=len(problemSet))
-  randomizedProblems = randomizeQuestionsInProblemSet(randomizedProblems)
+def randomizeCollection(collection: Any) -> List[Any]:
+  collectionRandom = random.sample(collection, k=len(collection))
 
-  return randomizedProblems
-
-def randomizeQuestionsInProblemSet(problems: List[fileOperations.Problem]) -> List[fileOperations.Problem]:
-  newProblems = []
-
-  for problem in problems:
-    randomizedOptions = random.sample(problem.options, k=len(problem.options))
-
-    # This looks confusing. fileOperations.Problem constructs a Problem type. It doesn't have to do with files.
-    # It's used to build Problem types when reading problems from files.
-    newProblems.append(fileOperations.Problem(problem.question, problem.solution, randomizedOptions))
-
-  return newProblems
-
+  return collectionRandom
 
 def displayQuestionAndOptions(question: str, options: List[str]) -> None:
   print(f"\nQuestion:\n{question}")
