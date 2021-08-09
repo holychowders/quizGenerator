@@ -1,4 +1,4 @@
-from src.quizGenerator.tui import tui
+from src.quizGenerator.ui import tui
 
 
 def main() -> int:

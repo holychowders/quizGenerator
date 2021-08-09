@@ -13,9 +13,6 @@ def test_glob() -> None:
   topics = files.glob(files.TOPICS_DIRECTORY, '*')
   assert 'sampleTopic' in topics
 
-def test_verifyTopicsPathExists() -> None:
-  assert files.verifyTopicsPathExists() == True
-
 def test__getPathBasename() -> None:
   path = 'this/is/a/file.txt'
   assert files._getPathBasename(path) == 'file.txt'
