@@ -21,7 +21,6 @@ def runMainMenu() -> Tuple[str, str]:
 
   return topicSelection, worksheetSelection
 
-
 def runGame(topic: str, worksheet: str) -> None:
   print(f'\n{messages.GAME_START_HEADER}')
 
@@ -29,11 +28,13 @@ def runGame(topic: str, worksheet: str) -> None:
 
   for problemNumber, problem in enumerate(problems):
 
-    if problemNumber > 0: print()
-    helpers.displayQuestionAndOptions(problem.question, problem.options)
+    options, question, solution = problem.options, problem.question, problem.solution
 
-    selection = helpers.userSelectFromMenu(problem.options)
-    selectionIsCorrect = (selection == problem.solution)
+    if problemNumber > 0: print()
+    helpers.displayQuestionAndOptions(question, options)
+
+    selection = helpers.userSelectFromMenu(options)
+    selectionIsCorrect = (selection == solution)
 
     if selectionIsCorrect: print(messages.CORRECT_ANSWER)
     else: print(messages.INCORRECT_ANSWER)

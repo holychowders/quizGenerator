@@ -1,14 +1,18 @@
+import json
 import pathlib
-from collections import namedtuple
+from dataclasses import dataclass
 
 from typing import List
 
 
-WORKSHEET_DELIMITER = ' --- '
 TOPICS_DIRECTORY = str(pathlib.Path(__file__).parent) + '/../../quizzes/topics'
 
 
-Problem = namedtuple("Problem", ("question", "solution", "options"))
+@dataclass
+class Problem:
+  question: str
+  options: List[str]
+  solution: str
 
 def getPathBasename(path: str) -> str:
   return pathlib.PurePath(path).name
@@ -31,23 +35,20 @@ def glob(path: str, pattern: str) -> List[str]:
   return [path.name for path in files]
 
 def getProblemsFromWorksheet(topic: str, worksheet: str) -> List[Problem]:
-  worksheetLines = parseWorksheet(topic, worksheet)
+  with open(f'{TOPICS_DIRECTORY}/{topic}/{worksheet}') as f:
+    worksheetDict = json.load(f)
+
   problems = list()
+  for _problemName, problemDict in worksheetDict.items():
+    problemObj = Problem(
+      question = problemDict['question'],
+      options = [ problemDict['options'][option] for option in problemDict['options'] ],
+      solution = problemDict['options'][problemDict['solution']]
+    )
 
-  for line in worksheetLines:
-    questionAndSolution = line[:2]
-    options = line[2:]
-
-    problems.append(Problem(*questionAndSolution, options))
+    problems.append(problemObj)
 
   return problems
-
-def parseWorksheet(topic: str, worksheet: str) -> List[List[str]]:
-  with open(f"{TOPICS_DIRECTORY}/{topic}/{worksheet}") as worksheetFile:
-    lines = worksheetFile.readlines()
-    cleanedLines = [line.strip('\n').split(WORKSHEET_DELIMITER) for line in lines]
-
-    return cleanedLines
 
 def verifyTopicsPathExists() -> bool:
   topicsPath = pathlib.Path(TOPICS_DIRECTORY)

@@ -2,7 +2,7 @@ from src.quizGenerator import fileOperations, formatting, messages
 
 import random
 
-from typing import List, Any
+from typing import Any, List
 
 
 def getTopicFromUser() -> str:
@@ -47,7 +47,7 @@ def getProblems(topic: str, worksheet: str) -> List[fileOperations.Problem]:
 
   randomizedProblemSet = randomizeCollection(problems)
 
-  return list(randomizedProblemSet)
+  return randomizedProblemSet
 
 def randomizeCollection(collection: Any) -> List[Any]:
   collectionRandom = random.sample(collection, k=len(collection))
