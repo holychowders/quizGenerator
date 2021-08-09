@@ -1,4 +1,4 @@
-from src.quizGenerator import fileOperations, formatting, messages
+from src.quizGenerator import files, formatting, messages
 
 import random
 from os.path import splitext
@@ -7,7 +7,7 @@ from typing import Any, List
 
 
 def getTopicFromUser() -> str:
-  topicOptions = fileOperations.getTopicOptions()
+  topicOptions = files.getTopicOptions()
 
   print(f'\nTopics:\n{formatting.formatMenuOptions(topicOptions)}\n')
   topicSelection = userSelectFromMenu(topicOptions)
@@ -35,7 +35,7 @@ def userSelectFromMenu(options: List[str], message: str = 'Selection: ') -> str:
 
 
 def getWorksheetFromUser(topicSelection: str) -> str:
-  worksheetOptions = fileOperations.getWorksheetOptions(topicSelection) 
+  worksheetOptions = files.getWorksheetOptions(topicSelection)
   worksheetOptionsNoFileExt = [ splitext(path)[0] for path in worksheetOptions ]
 
   print(f'\nWorksheets:\n{formatting.formatMenuOptions(worksheetOptionsNoFileExt)}\n')
@@ -44,8 +44,8 @@ def getWorksheetFromUser(topicSelection: str) -> str:
   return worksheetSelection
 
 
-def getProblems(topic: str, worksheet: str) -> List[fileOperations.Problem]:
-  problems = fileOperations.getProblemsFromWorksheet(topic, worksheet)
+def getProblems(topic: str, worksheet: str) -> List[files.Problem]:
+  problems = files.getProblemsFromWorksheet(topic, worksheet)
 
   randomizedProblemSet = randomizeCollection(problems)
 

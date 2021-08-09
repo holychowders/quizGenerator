@@ -14,18 +14,18 @@ class Problem:
   options: List[str]
   solution: str
 
-def getPathBasename(path: str) -> str:
+def _getPathBasename(path: str) -> str:
   return pathlib.PurePath(path).name
 
 def getTopicOptions() -> List[str]:
   topicPaths = glob(TOPICS_DIRECTORY, '*')
-  topicBasenames = [getPathBasename(path) for path in topicPaths]
+  topicBasenames = [_getPathBasename(path) for path in topicPaths]
 
   return topicBasenames
 
 def getWorksheetOptions(topic: str) -> List[str]:
   worksheetPaths = glob(f'{TOPICS_DIRECTORY}/{topic}/', '*')
-  worksheetBasenames = [getPathBasename(path) for path in worksheetPaths]
+  worksheetBasenames = [_getPathBasename(path) for path in worksheetPaths]
 
   return worksheetBasenames
 
@@ -49,9 +49,4 @@ def getProblemsFromWorksheet(topic: str, worksheet: str) -> List[Problem]:
     problems.append(problemObj)
 
   return problems
-
-def verifyTopicsPathExists() -> bool:
-  topicsPath = pathlib.Path(TOPICS_DIRECTORY)
-
-  return topicsPath.is_dir()
 

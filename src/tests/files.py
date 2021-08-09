@@ -1,27 +1,27 @@
-from src.quizGenerator import fileOperations
+from src.quizGenerator import files
 
 
 def test_getWorksheetOptions_fromSampleTopic() -> None:
-  worksheets = fileOperations.getWorksheetOptions('sampleTopic')
+  worksheets = files.getWorksheetOptions('sampleTopic')
   assert 'sampleWorksheet.json' in worksheets
 
 def test_getTopicOptions() -> None:
-  topicsCollection = fileOperations.getTopicOptions()
+  topicsCollection = files.getTopicOptions()
   assert 'sampleTopic' in topicsCollection
 
 def test_glob() -> None:
-  topics = fileOperations.glob(fileOperations.TOPICS_DIRECTORY, '*')
+  topics = files.glob(files.TOPICS_DIRECTORY, '*')
   assert 'sampleTopic' in topics
 
 def test_verifyTopicsPathExists() -> None:
-  assert fileOperations.verifyTopicsPathExists() == True
+  assert files.verifyTopicsPathExists() == True
 
-def test_getPathBasename() -> None:
+def test__getPathBasename() -> None:
   path = 'this/is/a/file.txt'
-  assert fileOperations.getPathBasename(path) == 'file.txt'
+  assert files._getPathBasename(path) == 'file.txt'
 
 def test_getProblemsFromWorksheet_WithTwoProblems() -> None:
-  problems = fileOperations.getProblemsFromWorksheet('sampleTopic', 'sampleWorksheet.json')
+  problems = files.getProblemsFromWorksheet('sampleTopic', 'sampleWorksheet.json')
 
   p1 = problems[0]
   p2 = problems[1]
