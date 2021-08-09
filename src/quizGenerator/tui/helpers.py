@@ -1,6 +1,7 @@
 from src.quizGenerator import fileOperations, formatting, messages
 
 import random
+from os.path import splitext
 
 from typing import Any, List
 
@@ -35,8 +36,9 @@ def userSelectFromMenu(options: List[str], message: str = 'Selection: ') -> str:
 
 def getWorksheetFromUser(topicSelection: str) -> str:
   worksheetOptions = fileOperations.getWorksheetOptions(topicSelection) 
+  worksheetOptionsNoFileExt = [ splitext(path)[0] for path in worksheetOptions ]
 
-  print(f'\nWorksheets:\n{formatting.formatMenuOptions(worksheetOptions)}\n')
+  print(f'\nWorksheets:\n{formatting.formatMenuOptions(worksheetOptionsNoFileExt)}\n')
   worksheetSelection = userSelectFromMenu(worksheetOptions)
 
   return worksheetSelection
